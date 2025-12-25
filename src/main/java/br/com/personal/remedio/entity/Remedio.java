@@ -1,6 +1,7 @@
 package br.com.personal.remedio.entity;
 
 import br.com.personal.insfrastructre.role.StatusRole;
+import br.com.personal.pessoa.entity.Pessoa;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,10 +35,9 @@ public class Remedio extends PersistenceEntity {
     @Column(nullable = false)
     StatusRole status;
 
-    /*
-   @Column (nullable = false)
-   @OneToMany(fetch = fetchType.EAGER)
-   Pessoa pessoa;
-     */
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id") // Cria a chave estrangeira na tabela Remedio
+    private Pessoa pessoa;
+
 
 }

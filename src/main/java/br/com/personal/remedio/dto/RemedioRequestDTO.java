@@ -20,7 +20,6 @@ public class RemedioRequestDTO {
     @Positive(message = "O uso diário deve ser maior que zero")
     private Double usoDiario;
 
-    /*
     private Long pessoaId;
-    */
+
 }

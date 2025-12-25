@@ -30,6 +30,7 @@ public class RemedioService {
 
     @Transactional
     public Remedio save(Remedio remedio) {
+        remedio.setId(null); //forçar ao repository criar um novo objeto e não atualizar um existeente
         calcularProximaCompraEStatus(remedio);
         return remedioRepository.save(remedio);
     }
