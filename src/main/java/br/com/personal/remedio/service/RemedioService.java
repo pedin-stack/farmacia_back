@@ -7,11 +7,13 @@ import br.com.personal.remedio.repository.RemedioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -86,4 +88,29 @@ public class RemedioService {
             remedio.setStatus(StatusRole.NORMAL);
         }
     }
+    @Scheduled(cron = "0 0 0 * * *")
+    @Transactional
+    public void atualizarEstoqueDiario() {
+        System.out.println("--- Iniciando atualização automática de estoque ---");
+
+        List<Remedio> remedios = remedioRepository.findAll();
+
+        for (Remedio remedio : remedios) {
+
+            double novaQuantidade = remedio.getQuantidade() - remedio.getUsoDiario();
+
+            if (novaQuantidade < 0) {
+                novaQuantidade = 0;
+            }
+
+            remedio.setQuantidade(novaQuantidade);
+            calcularProximaCompraEStatus(remedio);
+        }
+
+        // Salva todos de uma vez (mais performático que salvar um por um dentro do loop)
+        remedioRepository.saveAll(remedios);
+
+        System.out.println("--- Estoque atualizado com sucesso! ---");
+    }
+
 }
