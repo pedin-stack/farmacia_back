@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class RemedioRequestDTO {
 
@@ -21,5 +23,7 @@ public class RemedioRequestDTO {
     private Double usoDiario;
 
     private Long pessoaId;
+
+    LocalDate proxCompra;
 
 }

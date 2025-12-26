@@ -14,7 +14,5 @@ public class RemedioResponseDTO {
     private Double usoDiario;
     private LocalDate proxCompra;
     private StatusRole status;
-    /*
-    private PessoaResponseDTO pessoa;
-    */
+    private Long pessoaId;
 }

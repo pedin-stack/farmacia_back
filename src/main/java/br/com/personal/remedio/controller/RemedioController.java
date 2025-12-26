@@ -44,9 +44,8 @@ public class RemedioController {
 
     @PostMapping
     public ResponseEntity<RemedioResponseDTO> save(@RequestBody @Valid RemedioRequestDTO dto) {
-        Remedio entity = toEntity(dto);
-        // O service vai calcular a data de próxima compra aqui
-        Remedio saved = remedioService.save(entity);
+        // Agora passamos o DTO direto para o service
+        Remedio saved = remedioService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(toDto(saved));
     }
 
