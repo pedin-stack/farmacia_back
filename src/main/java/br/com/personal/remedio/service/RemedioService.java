@@ -113,4 +113,21 @@ public class RemedioService {
         remedioRepository.saveAll(remedios);
         //System.out.println("--- Estoque atualizado com sucesso! ---");
     }
+    @Scheduled(cron = "0 0 3 * * *") // todo dia, as 3 da manha vou chamar essa função para manter o banco ligado
+    public void manterBancoLigado(){
+
+        Remedio remedioPaleativo = new Remedio();
+
+       remedioPaleativo.setNome("iasjdkjosahdasjhgdsakjhdsakljdh");
+       remedioPaleativo.setQuantidade(3);
+       remedioPaleativo.setUsoDiario(3);
+       remedioPaleativo.setProxCompra(LocalDate.now());
+       remedioPaleativo.setStatus(StatusRole.URGENTE);
+       remedioRepository.save(remedioPaleativo);
+       remedioRepository.delete(remedioPaleativo);
+       remedioRepository.flush();
+
+
+    }
+
 }

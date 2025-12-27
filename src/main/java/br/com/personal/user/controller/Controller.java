@@ -3,7 +3,7 @@ package br.com.personal.user.controller;
 import br.com.personal.user.dto.UserRequestDTO;
 import br.com.personal.user.dto.UserResponseDTO;
 import br.com.personal.user.entity.User;
-import br.com.personal.user.service.Service;
+import br.com.personal.user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class Controller {
 
-    private final Service userService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
     private UserResponseDTO toDto(User user) {
@@ -35,6 +35,21 @@ public class Controller {
         Page<User> usersPage = userService.findAll(pageable);
         Page<UserResponseDTO> dtosPage = usersPage.map(this::toDto);
         return ResponseEntity.ok(dtosPage);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserRequestDTO dto) {
+        try {
+            // O Controller apenas passa os dados para o Service
+            User usuarioLogado = userService.login(dto.getEmail(), dto.getPassword());
+
+            // Retorna sucesso (200 OK) com o usuário
+            return ResponseEntity.ok(usuarioLogado);
+
+        } catch (RuntimeException e) {
+            // Se o service lançar erro (senha errada ou usuário não encontrado), retorna 401
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
