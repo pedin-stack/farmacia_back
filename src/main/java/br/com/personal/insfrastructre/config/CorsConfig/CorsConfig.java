@@ -6,19 +6,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-
-                // Permite os métodos necessários
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "TRACE", "CONNECT")
-
-                // Permite todos os cabeçalhos
-                .allowedHeaders("*");
-
-        // ESSENCIAL: Permite cookies/sessão
-        //.allowCredentials(true); ADICIONAR DEPOIS
+                .allowedOrigins("https://farmacia-beryl.vercel.app")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 }
