@@ -51,12 +51,12 @@ public class UserService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
-        System.out.println("--- DEBUG LOGIN ---");
+      /*  System.out.println("--- DEBUG LOGIN ---");
         System.out.println("Email recebido: " + email);
         System.out.println("Senha no Banco: [" + user.getPassword() + "]");
         System.out.println("Senha Digitada: [" + password + "]");
         System.out.println("As senhas são iguais? " + user.getPassword().equals(password));
-        System.out.println("-------------------");
+        System.out.println("-------------------");*/
 
 
         if (!user.getPassword().equals(password)) {
