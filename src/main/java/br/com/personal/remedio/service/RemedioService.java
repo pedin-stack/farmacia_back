@@ -98,8 +98,8 @@ public class RemedioService {
         }
     }
 
-    //@Scheduled(cron = "0 0 0 * * *")
-   @Scheduled(fixedRate = 10000)//teste
+    @Scheduled(cron = "0 0 0 * * *")
+   //@Scheduled(fixedRate = 10000)//teste
     @Transactional
     public void atualizarEstoqueDiario() {
        // System.out.println("--- Iniciando atualização automática de estoque ---");
