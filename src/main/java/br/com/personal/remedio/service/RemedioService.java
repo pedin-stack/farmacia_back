@@ -98,8 +98,8 @@ public class RemedioService {
         }
     }
 
-    @Scheduled(cron = "0 0 0 * * *")
-   //@Scheduled(fixedRate = 10000)//teste
+    //@Scheduled(cron = "0 0 0 * * *")
+   @Scheduled(fixedRate = 10000)//teste
     @Transactional
     public void atualizarEstoqueDiario() {
        // System.out.println("--- Iniciando atualização automática de estoque ---");
@@ -128,6 +128,11 @@ public class RemedioService {
        remedioRepository.flush();
 
 
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void manterBackLigado(){
+        System.out.println("Tick lançado a cada minuto para manter o render com o back ligado\n");
     }
 
 }
