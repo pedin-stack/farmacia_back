@@ -18,19 +18,16 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .csrf(csrf -> csrf.disable()) // Desabilita CSRF (padrão para APIs REST)
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configura CORS (para o React acessar)
-                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define como Stateless (sem sessão no servidor)
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    // LIBERA ESSAS ROTAS PUBLICAMENTE:
-                    req.requestMatchers("/users/login", "/users/register").permitAll();
-                    req.requestMatchers("/health").permitAll(); // <--- AQUI ESTÁ A ROTA PARA O PING
 
-                    // BLOQUEIA O RESTO:
-                    req.anyRequest().authenticated();
+                    req.anyRequest().permitAll();
                 })
                 .build();
     }
