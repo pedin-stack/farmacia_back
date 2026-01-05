@@ -61,6 +61,7 @@ public class RemedioService {
         remedio.setNome(dto.getNome());
         remedio.setQuantidade(dto.getQuantidade());
         remedio.setUsoDiario(dto.getUsoDiario());
+        remedio.setHoraConsumo(dto.getHoraConsumo());
 
         calcularProximaCompraEStatus(remedio);
 

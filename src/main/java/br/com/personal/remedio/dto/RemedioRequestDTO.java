@@ -6,24 +6,28 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
-public class RemedioRequestDTO {
+    public class RemedioRequestDTO {
 
-    @NotBlank(message = "O nome do remédio é obrigatório")
-    private String nome;
+        @NotBlank(message = "O nome do remédio é obrigatório")
+        private String nome;
 
-    @NotNull(message = "A quantidade é obrigatória")
-    @Positive(message = "A quantidade deve ser maior que zero")
-    private Double quantidade;
+        @NotNull(message = "A quantidade é obrigatória")
+        @Positive(message = "A quantidade deve ser maior que zero")
+        private Double quantidade;
 
-    @NotNull(message = "O uso diário é obrigatório")
-    @Positive(message = "O uso diário deve ser maior que zero")
-    private Double usoDiario;
+        @NotNull(message = "O uso diário é obrigatório")
+        @Positive(message = "O uso diário deve ser maior que zero")
+        private Double usoDiario;
 
-    private Long pessoaId;
+        Time horaConsumo;
 
-    LocalDate proxCompra;
+        private Long pessoaId;
+
+        LocalDate proxCompra;
 
 }
