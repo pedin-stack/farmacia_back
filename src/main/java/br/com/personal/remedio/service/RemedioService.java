@@ -112,7 +112,7 @@ public class RemedioService {
             calcularProximaCompraEStatus(remedio);
         }
         remedioRepository.saveAll(remedios);
-        //System.out.println("--- Estoque atualizado com sucesso! ---");
+        //System.out.println("--- Estoque atualizado com sucesso!! ---");
     }
     @Scheduled(cron = "0 0 3 * * *") // todo dia, as 3 da manha vou chamar essa função para manter o banco ligado
     public void manterBancoLigado(){
