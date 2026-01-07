@@ -130,10 +130,4 @@ public class RemedioService {
 
 
     }
-
-    @Scheduled(fixedRate = 60000)
-    public void manterBackLigado(){
-        System.out.println("Tick lançado a cada minuto para manter o render com o back ligado\n");
-    }
-
 }
