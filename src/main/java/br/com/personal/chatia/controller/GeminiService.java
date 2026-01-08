@@ -29,16 +29,23 @@ public class GeminiService {
         ObjectMapper mapper = new ObjectMapper();
         LocalDateTime horarioAtual = LocalDateTime.now();
 
+        String regraDeFormatacao =
+                "REGRA ESTRITA DE RESPOSTA: " +
+                        "Responda APENAS com uma lista numerada simples. " +
+                        "Não use introduções, não use negrito (**), não use texto extra. " +
+                        "Siga estritamente este padrão para cada linha: " +
+                        "'{Numero}. {Nome do Remédio} - {Data de Término} - {Nome da Pessoa}'. " +
+                        "Se a data não estiver explícita, calcule baseada no estoque e uso diário a partir de hoje (" + horarioAtual + ").";
 
-        String promptCombinado = "Considere os seguintes dados:\n" + dadosJson +
-                "\n\nPergunta sobre os dados:\n" + pergunta + "\n o horario atual é: \n" + horarioAtual;
-                ;
+        String promptCombinado = "Contexto (Dados do Estoque):\n" + dadosJson +
+                "\n\n" + regraDeFormatacao +
+                "\n\nPergunta do usuário: " + pergunta;
+
 
         String promptEscapado = promptCombinado
-                .replace("\"", "\\\"")  // Escapa aspas duplas
-                .replace("\n", "\\n")   // Escapa quebras de linha (preserva formatação)
+                .replace("\"", "\\\"")
+                .replace("\n", "\\n")
                 .replace("\r", "");
-
 
         String jsonGoogle = "{\"contents\": [{\"parts\": [{\"text\": \"" + promptEscapado + "\"}]}]}";
 
@@ -50,10 +57,10 @@ public class GeminiService {
             JsonNode root = mapper.readTree(response.getBody());
             JsonNode candidates = root.path("candidates");
 
-            if (candidates.isArray() && candidates.size() > 0) {
+            if (candidates.isArray() && !candidates.isEmpty()) {
                 return candidates.get(0).path("content").path("parts").get(0).path("text").asText();
             } else {
-                return "O Gemini respondeu sem texto. Verifique filtros de segurança.";
+                return "O Gemini respondeu sem texto.";
             }
 
         } catch (Exception e) {
