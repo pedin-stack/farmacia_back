@@ -32,8 +32,8 @@ public class GeminiService {
         String regraDeFormatacao =
                 "REGRA ESTRITA DE RESPOSTA: " +
                         "Responda APENAS com uma lista numerada simples. " +
-                        "Não use introduções, não use negrito (**), não use texto extra. " +
-                        "Siga estritamente este padrão para cada linha: " +
+                        "não use texto extra. " +
+                        "Siga  este padrão para as perguntas pertinentes : " +
                         "'{Numero}. {Nome do Remédio} - {Data de Término} - {Nome da Pessoa}'. " +
                         "Se a data não estiver explícita, calcule baseada no estoque e uso diário a partir de hoje (" + horarioAtual + ").";
 
