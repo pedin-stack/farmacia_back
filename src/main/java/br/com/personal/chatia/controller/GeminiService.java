@@ -10,6 +10,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
+import java.time.LocalDateTime;
+
 @Service
 public class GeminiService {
 
@@ -25,10 +27,12 @@ public class GeminiService {
 
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper = new ObjectMapper();
+        LocalDateTime horarioAtual = LocalDateTime.now();
 
 
         String promptCombinado = "Considere os seguintes dados:\n" + dadosJson +
-                "\n\nPergunta sobre os dados:\n" + pergunta;
+                "\n\nPergunta sobre os dados:\n" + pergunta + "\n o horario atual é: \n" + horarioAtual;
+                ;
 
         String promptEscapado = promptCombinado
                 .replace("\"", "\\\"")  // Escapa aspas duplas
